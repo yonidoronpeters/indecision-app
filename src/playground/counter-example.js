@@ -11,13 +11,13 @@ class Counter extends React.Component {
     this.handleAddOne = this.handleAddOne.bind(this);
     this.handleMinusOne = this.handleMinusOne.bind(this);
     this.state = {
-      count: props.count
+      count: 0
     };
   }
   componentDidMount() {
     try {
       const count = parseInt(localStorage.getItem('count'), 10);
-      if (count) {
+      if (!isNaN(count)) {
         this.setState(() => ({ count }));
       }
     } catch (error) {
@@ -64,11 +64,7 @@ class Counter extends React.Component {
   }
 }
 
-Counter.defaultProps = {
-  count: 0
-}
-
-ReactDOM.render(<Counter count={0}/>, document.getElementById('app'));
+ReactDOM.render(<Counter />, document.getElementById('app'));
 // const appRoot = document.getElementById('app');
 //
 // let count = 0;
