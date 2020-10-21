@@ -5,15 +5,34 @@ import Options from './Options';
 import AddOption from './AddOption';
 
 export default class IndecisionApp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
-    this.handleDeleteOption = this.handleDeleteOption.bind(this);
-    this.handleAddOption = this.handleAddOption.bind(this);
-    this.handlePick = this.handlePick.bind(this);
-    this.state = {
-      options: []
+  state = {
+    options: []
+  }
+
+  handleDeleteOptions = () => {
+    this.setState(() => ({options: []}));
+  }
+
+  handleDeleteOption = (option) => {
+    this.setState((prevState) => ({
+      options: prevState.options.filter(o => o !== option)
+    }));
+  }
+
+  handleAddOption = (option) => {
+    if (!option) {
+      return 'Enter valid value';
     }
+    if (this.state.options.includes(option)) {
+      return 'This option already exists'
+    }
+    this.setState((prevState) => ({options: prevState.options.concat(option)}));
+  }
+
+  handlePick = () => {
+    const random = Math.floor(Math.random() * this.state.options.length);
+    const option = this.state.options[random];
+    alert(option);
   }
 
   // component lifecycle methods
@@ -37,33 +56,6 @@ export default class IndecisionApp extends React.Component {
   componentWillUnmount() {
     console.log('componentWillUnmount');
   }
-
-  handleDeleteOptions() {
-    this.setState(() => ({options: []}));
-  }
-
-  handleDeleteOption(option) {
-    this.setState((prevState) => ({
-      options: prevState.options.filter(o => o !== option)
-    }));
-  }
-
-  handleAddOption(option) {
-    if (!option) {
-      return 'Enter valid value';
-    }
-    if (this.state.options.includes(option)) {
-      return 'This option already exists'
-    }
-    this.setState((prevState) => ({options: prevState.options.concat(option)}));
-  }
-
-  handlePick() {
-    const random = Math.floor(Math.random() * this.state.options.length);
-    const option = this.state.options[random];
-    alert(option);
-  }
-
   render() {
     const subtitle = 'Put your life in the hands of a computer!';
     return (
