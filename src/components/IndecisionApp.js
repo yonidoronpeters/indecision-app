@@ -3,7 +3,7 @@ import Header from './Header';
 import Action from './Action';
 import Options from './Options';
 import AddOption from './AddOption';
-import OptionModel from './OptionModal';
+import OptionModal from './OptionModal';
 
 export default class IndecisionApp extends React.Component {
   state = {
@@ -81,7 +81,7 @@ export default class IndecisionApp extends React.Component {
            <AddOption addOption={this.handleAddOption}/>
          </div>
         </div>
-        <OptionModel
+        <OptionModal
           selectedOption={this.state.selectedOption}
           closeModal={this.handleCloseModal}
         />
